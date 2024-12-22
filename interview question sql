@@ -1,0 +1,25 @@
+sql interview question 
+
+flash fill 
+
+create table brands 
+(
+category varchar(20),
+brand_name varchar(20)
+);
+insert into brands values
+('chocolates','5-star')
+,(null,'dairy milk')
+,(null,'perk')
+,(null,'eclair')
+,('Biscuits','britannia')
+,(null,'good day')
+,(null,'boost');
+
+
+sql query
+
+with cte as (
+select  *, row_number() over(order by    (select null) )  as rnk from brands12) 
+
+select min(category) over(order by rnk rows between unbounded preceding and current row) from cte 

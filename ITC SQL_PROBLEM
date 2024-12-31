@@ -35,3 +35,11 @@ select c.*,cd.* from city_distance c left join city_distance cd on c.source = cd
 where c.distance <> cd.distance or
 cd.distance is null  or c.source<C.destination
 
+solution 2
+
+WITH CTE AS (
+SELECT *, ROW_NUMBER() OVER(ORDER BY (SELECT NULL)) AS RNK  FROM city_distance) 
+
+SELECT * FROM CTE C1 LEFT JOIN CTE C2 ON C1.source = C2.destination AND C2.source= C1.destination
+where c1.distance <> c2.distance or
+c2.distance is null or c1.rnk<c2.rnk 
